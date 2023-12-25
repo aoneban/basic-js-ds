@@ -41,23 +41,22 @@ class BinarySearchTree {
         currentNode = currentNode.right
       }
     }
-
   }
 
   has(data) {
     return searchItem(this.rootNode, data);
 
-  function searchItem(node, data) {
-    if (!node) {
-      return false;
+    function searchItem(node, data) {
+      if (!node) {
+        return false;
+      } else if (node.data === data) {
+        return true;
+      } else if (data < node.data) {
+        return searchItem(node.left, data)
+      } else {
+        return searchItem(node.right, data);
+      }
     }
-
-    if (node.data === data) {
-      return true;
-    }
-
-    return data < node.data ? searchItem(node.left, data) : searchItem(node.right, data);
-  }
   }
 
   find(data) {
@@ -66,13 +65,13 @@ class BinarySearchTree {
     function findItem(node, data) {
       if (!node) {
         return null;
-      }
-  
-      if (node.data === data) {
+      } else if (node.data === data) {
         return node;
+      } else if (data < node.data) {
+        return findItem(node.left, data)
+      } else {
+        return findItem(node.right, data)
       }
-  
-      return data < node.data ? findItem(node.left, data) : findItem(node.right, data);
     }
   }
 
@@ -82,13 +81,31 @@ class BinarySearchTree {
   }
 
   min() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+    return searchMin(this.rootNode);
+
+    function searchMin(node) {
+      if (!node) {
+        return false;
+      } else if (node.left) {
+        return searchMin(node.left)
+      } else {
+        return node.data
+      } 
+    }
   }
 
   max() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+    return searchMax(this.rootNode);
+
+    function searchMax(node) {
+      if (!node) {
+        return false;
+      } else if (node.right) {
+        return searchMax(node.right)
+      } else {
+        return node.data
+      } 
+    }
   }
 }
 
