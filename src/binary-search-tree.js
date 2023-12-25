@@ -17,30 +17,47 @@ class BinarySearchTree {
   }
 
   add(data) {
-    this.rootNode = addElem(this.rootNode, data);
 
-    function addElem(node, data) {
-      if (!node) {
-        return new Node(data);
-      }
-
-      if (node.value === data) {
-        return node;
-      }
-
-      if (data < node.value) {
-        node.left = addElem(node.left, data);
-      } else {
-        node.right = addElem(node.right, data);
-      }
-
-      return node;
+    const newNode = new Node(data)
+    if (!this.rootNode) {
+      this.rootNode = newNode
+      return
     }
+
+    let currentNode = this.rootNode
+
+    while(currentNode) {
+      if(newNode.data < currentNode.data) {
+        if (!currentNode.left) {
+          currentNode.left = newNode;
+          return;
+        }
+        currentNode = currentNode.left;
+      } else {
+        if (!currentNode.right) {
+          currentNode.right = newNode;
+          return
+        }
+        currentNode = currentNode.right
+      }
+    }
+
   }
 
-  has(/* data */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  has(data) {
+    return searchItem(this.rootNode, data);
+
+  function searchItem(node, data) {
+    if (!node) {
+      return false;
+    }
+
+    if (node.data === data) {
+      return true;
+    }
+
+    return data < node.data ? searchItem(node.left, data) : searchItem(node.right, data);
+  }
   }
 
   find(/* data */) {
